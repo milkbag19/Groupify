@@ -128,10 +128,10 @@ button{
 
   <form id ="yeet" name="SignInForm" method="post" enctype="multipart/form-data">
 <?php
- for($j=0;$j<$_SESSION['rowcount'];$j++){echo "<button style='height:22vh; width:22vw;margin:10px;' id = 'class' class='submit' name = 'class' href='classroom.php'>Classroom</button>";}
+ for($j=0;$j<$_SESSION['classcount'];$j++){echo "<button style='height:22vh; width:22vw;margin:10px;' id = 'class' class='submit' name = 'class' href='classroom.php'>Classroom</button>";}
 
  if(isset($_POST['n'])&&$_POST['n'] == ''){
-             $_SESSION['rowcount'] = 0;
+             $_SESSION['classcount'] = 0;
              unset($_POST['n']);
              echo"<script>window.location.href = 'dashboard.php';</script>";
          }
@@ -140,10 +140,11 @@ button{
                      unset($_SESSION['n']);
                  }?>
         <?php
-        echo "<button style='height:22vh; width:22vw;margin:10px;' id = 'y' class='submit' name = 'y'>+</button>";
+        echo "<input type='text' style='height:22vh; width:22vw;margin:10px;' name='className' id='className'><button id='y' name='y'>ADD</button></input> ";
 
         if(isset($_POST['y']) && $_POST['y'] == ''){
-            $_SESSION['rowcount']++;
+            $_SESSION['classcount']++;
+            addClassroom();
             echo"<script>window.location.href = 'dashboard.php';</script>";
         }?>
 

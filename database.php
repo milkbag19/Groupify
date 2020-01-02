@@ -8,6 +8,7 @@ require 'PHPMailer/src/SMTP.php';
 
  session_start();
  $_SESSION['rowcount'];
+ $_SESSION['classcount'];
  $servername = "localhost";  //declaring a placeholder for the database server name.
  $username = "milkbag19";    //declaring a placeholder for the database username sign in.
  $password = "yeet";         //declaring a placeholder for the database password sign in.
@@ -124,7 +125,7 @@ require 'PHPMailer/src/SMTP.php';
 
          $_SESSION['user'] = $row;
          $_SESSION['error'] = "";
-         header("Location: classroom.php");
+         header("Location: dashboard.php");
          }else{
          $_SESSION['error']="invalid username/password";
           }
@@ -251,6 +252,36 @@ require 'PHPMailer/src/SMTP.php';
       }else{
          $_SESSION['error'] = "username unavailable";
       }
+ }
+
+ function addClassroom(){
+  //function meant to upload data to the database.  Mainly for user creation.
+      if (session_status() == PHP_SESSION_ACTIVE) {
+      }
+      else{
+      session_start();
+      }
+      $servername = "localhost";
+      $username = "milkbag19";
+      $password = "yeet";
+      $database = "userinfo";
+      $idUser = $_SESSION['user']['userId'];
+      //=====================================================================\\
+      //All $_POST variables are grabbing the values from HTML text boxes    \\
+      //=====================================================================\\
+      $className = $_POST['className'];
+      if($className ===''){
+
+      }else{
+              $mysqli = new mysqli($servername, $username, $password, $database);
+              $upload = "INSERT INTO classrooms (className,userid) VALUES ('$className','$idUser')";
+              if ($mysqli->query($upload) === TRUE) {
+
+              }
+             }
+
+
+
  }
 //=====================================================================\\
 //When enter is pressed, or submit is clicked, then either submit      \\
