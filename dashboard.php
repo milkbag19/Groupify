@@ -128,7 +128,9 @@ button{
 
   <form id ="yeet" name="SignInForm" method="post" enctype="multipart/form-data">
 <?php
- for($j=0;$j<$_SESSION['classcount'];$j++){echo "<button style='height:22vh; width:22vw;margin:10px;' id = 'class' class='submit' name = 'class' href='classroom.php'>Classroom</button>";}
+
+ classSelect();
+ for($j=0;$j<$_SESSION['classcount'];$j++){}
 
  if(isset($_POST['n'])&&$_POST['n'] == ''){
              $_SESSION['classcount'] = 0;

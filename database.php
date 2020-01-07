@@ -283,6 +283,25 @@ require 'PHPMailer/src/SMTP.php';
 
 
  }
+
+ function classSelect(){
+
+       $servername = "localhost";
+       $username = "milkbag19";
+       $password = "yeet";
+       $database = "userinfo";
+      $mysqli = new mysqli($servername, $username, $password, $database);
+      $userId1 = $_SESSION['user']['userId'];
+      //code below was sourced via helpful user, on the internet. He also described that our table could be modified by users (which isn't good) and the suggested code fix below would fix it.
+      $sql = "SELECT ClassName FROM classrooms WHERE userid = ?";
+      $stmt = $mysqli->prepare($sql);
+      $stmt->bind_param('s', $userId1);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      while($row = $result->fetch_object()) {
+          echo "<button style='height:22vh; width:22vw;margin:10px;' id = 'class' class='submit' name = 'class' href='classroom.php'>$row->ClassName</button>";
+      }
+ }
 //=====================================================================\\
 //When enter is pressed, or submit is clicked, then either submit      \\
 //or create is set, and this is checked via post method.               \\
