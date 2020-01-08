@@ -264,17 +264,31 @@ require 'PHPMailer/src/SMTP.php';
       $servername = "localhost";
       $username = "milkbag19";
       $password = "yeet";
+      $className = $_POST['className'];
       $database = "userinfo";
       $idUser = $_SESSION['user']['userId'];
+      $classCode = rand(10000,99999);
+
+      $mysqli = new mysqli($servername, $username, $password, $database);
+      $codeSearch = "SELECT * FROM classroom WHERE `classCode` LIKE '%{$classCode}%'";
+       $searchresult = $mysqli->query($codeSearch);
+       $row = $searchresult->fetch_assoc();
+       echo"epic";
+       echo"$classCode";
+      while(!$row['username']==null){
+        $classCode = rand(10000,99999);
+        echo"$classCode ";
+        $searchresult = $mysqli->query($codeSearch);
+        $row = $searchresult->fetch_assoc();
+      }
       //=====================================================================\\
       //All $_POST variables are grabbing the values from HTML text boxes    \\
       //=====================================================================\\
-      $className = $_POST['className'];
+
       if($className ===''){
 
       }else{
-              $mysqli = new mysqli($servername, $username, $password, $database);
-              $upload = "INSERT INTO classrooms (className,userid) VALUES ('$className','$idUser')";
+              $upload = "INSERT INTO classroom (ClassName,userid,classCode) VALUES ('$className','$idUser','$classCode')";
               if ($mysqli->query($upload) === TRUE) {
 
               }
@@ -283,6 +297,28 @@ require 'PHPMailer/src/SMTP.php';
 
 
  }
+function classJoin(){
+    $servername = "localhost";
+    $username = "milkbag19";
+    $password = "yeet";
+    $database = "userinfo";
+    $mysqli = new mysqli($servername, $username, $password, $database);
+    $userId1 = $_SESSION['user']['userId'];
+    $classCode = $_POST['codeInput'];
+    $className = $_POST['className'];
+    $codeSearch = "SELECT * FROM classroom WHERE `classCode` LIKE '%{$classCode}%'";
+    $searchresult = $mysqli->query($codeSearch);
+    $row = $searchresult->fetch_assoc();
+
+    $className = $row['ClassName'];
+    if($row['classCode']==$classCode){
+         $upload = "INSERT INTO classroom (ClassName,userid,classCode) VALUES ('$className','$userId1','$classCode')";
+              if ($mysqli->query($upload) === TRUE) {
+
+                            }
+    }
+
+}
 
  function classSelect(){
 
@@ -293,13 +329,16 @@ require 'PHPMailer/src/SMTP.php';
       $mysqli = new mysqli($servername, $username, $password, $database);
       $userId1 = $_SESSION['user']['userId'];
       //code below was sourced via helpful user, on the internet. He also described that our table could be modified by users (which isn't good) and the suggested code fix below would fix it.
-      $sql = "SELECT ClassName FROM classrooms WHERE userid = ?";
+      $sql = "SELECT ClassName FROM classroom WHERE userid = ?";
       $stmt = $mysqli->prepare($sql);
       $stmt->bind_param('s', $userId1);
       $stmt->execute();
       $result = $stmt->get_result();
       while($row = $result->fetch_object()) {
-          echo "<button style='height:22vh; width:22vw;margin:10px;' id = 'class' class='submit' name = 'class' href='classroom.php'>$row->ClassName</button>";
+          echo "<div style='height:22vh; width:22vw;margin:10px;text-align:center;' class='submit1'>
+                    <button style='display:block;box-shadow: none;border:none;' class='submit1' id='$row->ClassName' name='$row->ClassName'>X</button>
+                        <button id = 'class'  style='height:18vh; width:22vw; border:none;box-shadow: none;'  class='submit1' name = 'class' href='classroom.php'>$row->ClassName</button>
+                 </div>";
       }
  }
 //=====================================================================\\

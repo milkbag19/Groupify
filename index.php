@@ -117,6 +117,8 @@ body{
    width: 100%;
    opacity: 0.9;
  }
+ *:focus {outline:none}
+
 </style>
 </head>
 
