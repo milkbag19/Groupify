@@ -10,4 +10,6 @@ Front end for our collaborative web tool
 
 - Second Milestone (TBD, The completion of the dashboard with full front end and back end functionality.)
 
-- Third Mileston (TBD, TBD.)
+- Third Mileston (TBD, Multi-user platform, with chat feature working.)
+
+# NOTE: Second account to Milkbag19. 

@@ -26,39 +26,40 @@ function closeNav() {
     }
 
     .sidenav {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
-     text-align:right;
-    }
+          height: 100%;
+          width: 0;
+          position: fixed;
+               z-index: 1;
+               top: 0;
+               right: 0;
+               background-color: #111;
+               overflow-x: hidden;
+               transition: 0.5s;
+               padding-top: 60px;
+              text-align:right;
+        }
 
-    .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
-    }
+        .sidenav a {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size: 35px;
+          color: #818181;
+          display: block;
+          transition: 0.3s;
+          font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+        }
 
-    .sidenav a:hover {
-      color: #f1f1f1;
-    }
+        .sidenav a:hover {
+          color: #f1f1f1;
+        }
 
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
+        .sidenav .closebtn {
+          position: absolute;
+          top: 0;
+          right: 25px;
+          font-size: 36px;
+          margin-left: 50px;
+        }
 
     @media screen and (max-height: 450px) {
       .sidenav {padding-top: 15px;}
@@ -83,7 +84,24 @@ function closeNav() {
 .submit:active {
     box-shadow: inset 0 2px 5px #2370FE;
 }
-
+.logout{
+      padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 35px;
+            margin-top:25vh;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            background-color:#111;
+            border:none;
+            float:right;
+}
+.logout:hover{
+color: #f1f1f1;
+}
+button{
+font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+}
 </style>
 
 <html lang="en">
@@ -95,13 +113,23 @@ function closeNav() {
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="Profile.php">PROFILE OPTIONS</a>
+
+    <form id ="lol" name="SignInForm" method="post" enctype="multipart/form-data">
+    <button name="logout" id="logout" class="logout">LOG OUT</button>
+    <?php
+        if(isset($_POST['logout'])){
+            $_SESSION['user']=null;
+            echo"<script>window.location.href = 'index.php';</script>";
+        }
+    ?>
+    </form>
 </div>
 
 <body style="background-image: url('memphis-colorful.png'); padding: 0px; border-radius:0px; padding:0px; margin:0px;">
     <div style="display:inline-block; width:100%; height:15%; padding:0%; margin:0%; background-color:lightGrey;">
 
         <div class="logoText" style="float:left; font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif; font-style:italic;" >
-        <a href="dashboard.php" style="text-decoration: none;">
+        <a href="dashboard.php" name="return" style="text-decoration: none;">
             <h1 class = "Groupify" style="margin-left:3px">
                 <span class="titleTextG" >G</span>
                 <span class="titleTextG" >r</span>
@@ -117,7 +145,6 @@ function closeNav() {
             <span style="font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;" onclick="openNav()">My Account▼</span>
         </div>
 </body>
-
 <div style="margin-top: 0px; display:inline-block; float:left;">
  <table style="border-collapse:collapse; width:100%">
  <?php
@@ -125,15 +152,16 @@ function closeNav() {
              $_SESSION['rowcount'] = 0;
              unset($_SESSION['n']);
          }
-  for($j=0;$j<$_SESSION['rowcount'];$j++){echo"<tr style='border:1px solid #dddddd; padding:0px; margin:0px;'><th style='border:1px solid #dddddd; height:10vh; width:33vw; margin:33%;'><input placeholder='forloop'></input></th><th style='border:1px solid #dddddd; height:10vh; width:33vw; margin:33%;'>ghd</th></tr>";}?>
-<form id ="yeet" name="SignInForm" method="post" enctype="multipart/form-data">
+         loadTasks();
+         ?>
+  <form id ="yeet" name="SignInForm" method="post" enctype="multipart/form-data">
 
 
         <?php
-        echo "<tr style='border:1px solid #dddddd; padding:0px; margin:0px;'><th style='border:1px solid #dddddd; height:10vh; width:33vw; margin:33%;'><button style='height:10vh; width:33vw;' id = 'y' class='submit' name = 'y'>ADD</button></th></tr>";
+        echo "<tr style='border:1px solid #dddddd; padding:0px; margin:0px;'><th><input name='taskName' style='width:100px;height:50px;' type='text'></th><th style='border:1px solid #dddddd; height:10vh; width:33vw; margin:33%;'><button style='height:10vh; width:33vw;' id = 'y' class='submit' name = 'y'>ADD</button></th></tr>";
 
         if(isset($_POST['y']) && $_POST['y'] == ''){
-            $_SESSION['rowcount']++;
+            addTasks();
             echo"<script>window.location.href = 'classroom.php';</script>";
         }?>
 
