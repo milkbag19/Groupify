@@ -229,28 +229,34 @@ require 'PHPMailer/src/SMTP.php';
 
 
  if($row['username']==null){
+
+          /*UPDATE THE USERNAME CELL USING SQL QUERY*/
+
           $updateQuery = "UPDATE users SET `username` = '$newUsername' WHERE `userId` = '$id'";
+
+          /*SEND QUERY TO DATABASE*/
+
           if ($mysqli->query($updateQuery) === TRUE) {
               $searchresult = $mysqli->query($searchquery);
                       $row = $searchresult->fetch_assoc();
                       $_SESSION['user']=$row;
                       $_SESSION['error'] = "";
-                      $mail = new PHPMailer(true);
 
 
-                          $mail->IsSMTP(); // telling the class to use SMTP
-                          $mail->SMTPAuth = true; // enable SMTP authentication
-                          $mail->SMTPSecure = "ssl"; // sets the prefix to the servier
-                          $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
-                          $mail->Port = 465; // set the SMTP port for the GMAIL server
-                          $mail->Username = "noreply.groupify@gmail.com"; // GMAIL username
-                          $mail->Password = "Groupify1234"; // GMAIL password
+                       /*EMAIL NOTIFICATION CODE*/
 
-
-                      $mail->AddAddress($_SESSION['user']['email'], $_SESSION['user']['username']);
-                      $mail->SetFrom("noreply.groupify@gmail.com", "Groupify");
-                      $mail->Subject = "Changed Username";
-                      $mail->Body = "Your Groupify user name has been changed to ".$_SESSION['user']['username'];
+                       $mail = new PHPMailer(true);
+                       $mail->IsSMTP();
+                       $mail->SMTPAuth = true;
+                       $mail->SMTPSecure = "ssl";
+                       $mail->Host = "smtp.gmail.com";
+                       $mail->Port = 465;
+                       $mail->Username = "noreply.groupify@gmail.com";
+                       $mail->Password = "Groupify1234";
+                       $mail->AddAddress($_SESSION['user']['email'], $_SESSION['user']['username']);
+                       $mail->SetFrom("noreply.groupify@gmail.com", "Groupify");
+                       $mail->Subject = "Changed Username";
+                       $mail->Body = "Your Groupify user name has been changed to ".$_SESSION['user']['username'];
 
                       try{
                           $mail->Send();

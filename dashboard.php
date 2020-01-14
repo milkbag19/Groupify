@@ -242,7 +242,8 @@ color: #f1f1f1;
                     </a>
                 </div>
             <span style="font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;" onclick="openNav()">My Account▼</span>
-            <span style="text-align:center;background-color:green;font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;" class="submit" onclick="openJoin()">Join</span>
+            <span style="text-align:center;background-color:green;font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;width:7vw;" class="submit" onclick="openJoin()">Join</span>
+            <span style="text-align:center;background-color:green;font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;width:10vw;" class="submit" onclick="openCreate()">Create</span>
 
         </div>
 
@@ -257,7 +258,7 @@ color: #f1f1f1;
 <?php
 
  classSelect();
- echo"<input type='text'id='className'name='className'><button id='y'name='y'>ADD</button>";
+ echo"<button id='y'name='y'>ADD</button>";
  if(isset($_POST['n'])&&$_POST['n'] == ''){
              unset($_POST['n']);
              echo"<script>window.location.href = 'dashboard.php';</script>";
@@ -269,8 +270,7 @@ color: #f1f1f1;
                  }?>
         <?php
         if(isset($_POST['y']) && $_POST['y'] == ''){
-            addClassroom();
-            echo"<script>window.location.href = 'dashboard.php';</script>";
+            echo"<script>window.location.href = 'ClassroomCreate.php';</script>";
         }?>
 
 

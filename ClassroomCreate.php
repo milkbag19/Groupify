@@ -11,9 +11,9 @@ include_once('database.php');
 <script src="jquery.js"></script>
 
 <style>
-.signInBox{
+.createBox{
 width:50vw;
-margin-left:7vw;
+margin-left:0vw;
 }
 .signInTxt{
 font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
@@ -157,27 +157,23 @@ body{
 
 
 <div class="SignInTitle" style="margin:0px; padding:0px; display:inline-block;width:85%;">
-   <img src="https://img.icons8.com/bubbles/500/000000/guest-male.png"style="width:150px;height:150px;margin:0px;padding:0px;">
-   <h1 class="profileTitle">Your Profile</h1>
+   <h1 class="profileTitle">Create your classroom</h1>
 </div>
-<div class="signInBox">
+<div class="createBox">
 <form id ="yeet" name="SignInForm" method="post" enctype="multipart/form-data">
 
 <br>
     <br>
-    <h2 class="usernameDisplay">Username : <?php echo $_SESSION['user']['username']; ?><h2>
 
      <div class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="new username" name="username" id="username">
+        <input class="input-field" type="text" placeholder="Classroom Name" name="className" id="className">
       </div>
-      <p style="font-size:12px;color:red;"><?php $error="";if(isset($_POST['changeUsername']) && $_POST['changeUsername'] == ''){ echo $_SESSION['error']; } ?></p>
-          <button  id = "changeUsername" class="submit"  name="changeUsername" >Change</button>
      <br>
      <br>
      <div class="input-container">
         <i class="fa fa-key icon"></i>
-        <input class="input-field" type="password" placeholder="Password" name="password">
+        <input class="input-field" type="text" placeholder="Password" name="password">
      </div>
      <br>
      <div class="input-container">
@@ -185,8 +181,8 @@ body{
         <input class="input-field" type="password" placeholder="Confirm password" name="passwordCon">
      </div>
      <br>
-        <p style="font-size:12px;color:red;"><?php $error="";if(isset($_POST['changePassword']) && $_POST['changePassword'] == ''){ echo $_SESSION['error']; } ?></p>
-          <button  id = "changePassword" class="submit"  name="changePassword" >Change</button>
+        <p style="font-size:12px;color:red;"><?php $error="";if(isset($_POST['CreateClass']) && $_POST['CreateClass'] == ''){ } ?></p>
+          <button  id = "changePassword" class="submit"  name="CreateClass" >Create</button>
     <br>
     <br>
 

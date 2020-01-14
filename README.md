@@ -1,4 +1,4 @@
-# Groupify
+# MilkbagVersion2.github.io
 Front end for our collaborative web tool
 
 #Whats the goal?
@@ -8,6 +8,8 @@ Front end for our collaborative web tool
 
 - First Milestone (December 2nd, the completion of the main back end and front end for user profiles, sign in and sign up.)
 
-- Second Milestone (January 1st, The completion of the dashboard with full front end and back end functionality.)
+- Second Milestone (TBD, The completion of the dashboard with full front end and back end functionality.)
 
-- Third Mileston (January 7th, Multi-user platform, with tasks back end functionality.)
+- Third Mileston (TBD, Multi-user platform, with chat feature working.)
+
+# NOTE: Second account to Milkbag19. 
