@@ -170,18 +170,7 @@ body{
         <input class="input-field" type="text" placeholder="Classroom Name" name="className" id="className">
       </div>
      <br>
-     <br>
-     <div class="input-container">
-        <i class="fa fa-key icon"></i>
-        <input class="input-field" type="text" placeholder="Password" name="password">
-     </div>
-     <br>
-     <div class="input-container">
-        <i class="fa fa-key icon"></i>
-        <input class="input-field" type="password" placeholder="Confirm password" name="passwordCon">
-     </div>
-     <br>
-        <p style="font-size:12px;color:red;"><?php $error="";if(isset($_POST['CreateClass']) && $_POST['CreateClass'] == ''){ } ?></p>
+        <p style="font-size:12px;color:red;"><?php $error="";if(isset($_POST['CreateClass']) && $_POST['CreateClass'] == ''){addClassroom(); } ?></p>
           <button  id = "changePassword" class="submit"  name="CreateClass" >Create</button>
     <br>
     <br>

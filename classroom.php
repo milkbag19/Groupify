@@ -142,9 +142,19 @@ font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleG
             </h1>
             </a>
         </div>
-            <span style="font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;" onclick="openNav()">My Account▼</span>
+            <span style="font-size:50px;cursor:pointer; display:inline-block; float:right; margin-top:20px; margin-right:20px;" onclick="openNav()">&#9776;</span>
+
+  <form id ="yeet" name="SignInForm" method="post" enctype="multipart/form-data">
+            <button style="text-align:center;background-color:green;font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;width:7vw;" class="submit" name='leave' >Leave</button>
+</form>
         </div>
 </body>
+
+<?php
+    if(isset($_POST['leave']) && $_POST['leave']==''){
+        removeClassroom();
+    }
+?>
 <div style="margin-top: 0px; display:inline-block; float:left;">
  <table style="border-collapse:collapse; width:100%">
  <?php

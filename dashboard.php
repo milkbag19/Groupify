@@ -16,6 +16,9 @@ function closeNav() {
 function closeJoin() {
   document.getElementById("joinbtn").style.height = "0px";
 }
+function openCreate(){
+ window.location.href ="classroomCreate.php";
+}
 </script>
 <style>
     .titleText{
@@ -167,6 +170,10 @@ button{
 .logout:hover{
 color: #f1f1f1;
 }
+@keyframes slidein {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
 </style>
 
 <html lang="en">
@@ -174,7 +181,11 @@ color: #f1f1f1;
     <meta charset="UTF-8">
     <title>DASHBOARD</title>
 </head>
+<div style= "height:2vh;width:100%;background-color:lightgray;">
+<div style= "height:2vh;width:200%;background-color:darkgray;animation: 2s slidein;float:right;">
 
+</div>
+</div>
 <div id="mySidenav" class="sidenav">
     <?php
 
@@ -224,7 +235,7 @@ color: #f1f1f1;
 ?>
 </div>
 
-<body style="background-image: url('memphis-colorful.png'); padding: 0px; border-radius:0px; padding:0px; margin:0px;">
+<body style=" padding: 0px; border-radius:0px; padding:0px; margin:0px;">
     <div style="display:inline-block; width:100%; height:15%; padding:0%; margin:0%; background-color:lightGrey;">
 
          <div class="logoText" style="float:left; font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif; font-style:italic;" >
@@ -241,7 +252,7 @@ color: #f1f1f1;
                     </h1>
                     </a>
                 </div>
-            <span style="font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;" onclick="openNav()">My Account▼</span>
+            <span style="font-size:50px;cursor:pointer; display:inline-block; float:right; margin-top:20px; margin-right:20px;" onclick="openNav()">&#9776;</span>
             <span style="text-align:center;background-color:green;font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;width:7vw;" class="submit" onclick="openJoin()">Join</span>
             <span style="text-align:center;background-color:green;font-size:30px;cursor:pointer; display:inline-block; float:right; margin-top:40px; margin-right:20px;width:10vw;" class="submit" onclick="openCreate()">Create</span>
 
@@ -258,11 +269,7 @@ color: #f1f1f1;
 <?php
 
  classSelect();
- echo"<button id='y'name='y'>ADD</button>";
- if(isset($_POST['n'])&&$_POST['n'] == ''){
-             unset($_POST['n']);
-             echo"<script>window.location.href = 'dashboard.php';</script>";
-         }
+
          if(isset($_POST['class']) && $_POST['class'] != ''){
                      $_SESSION['currentClass'] = $_POST['class'];
                      echo"<script>window.location.href = 'classroom.php';</script>";
@@ -277,9 +284,7 @@ color: #f1f1f1;
 </form>
 </th>
     </table>
-    <form id ="yeet" name="SignInForm" method="post" enctype="multipart/form-data">
-<button id = "n" class="submit" name = "n" >Reset</button>
-</form>
+
 
 
 </div>

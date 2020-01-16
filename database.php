@@ -7,8 +7,6 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
  session_start();
- $_SESSION['rowcount'];
- $_SESSION['classcount'];
  $servername = "localhost";  //declaring a placeholder for the database server name.
  $username = "milkbag19";    //declaring a placeholder for the database username sign in.
  $password = "yeet";         //declaring a placeholder for the database password sign in.
@@ -21,11 +19,7 @@ require 'PHPMailer/src/SMTP.php';
  }
      function upload(){
       //function meant to upload data to the database.  Mainly for user creation.
-     if (session_status() == PHP_SESSION_ACTIVE) {
-     }
-     else{
-     session_start();
-     }
+     checkSession();
      $servername = "localhost";
      $username = "milkbag19";
      $password = "yeet";
@@ -95,12 +89,7 @@ require 'PHPMailer/src/SMTP.php';
 
      }
  function signIn(){
- if (session_status() == PHP_SESSION_ACTIVE) {
-
- }
- else{
- session_start();
- }
+ checkSession();
  $servername = "localhost";
  $username = "milkbag19";
  $password = "yeet";
@@ -142,12 +131,7 @@ require 'PHPMailer/src/SMTP.php';
  */
 
  function updatePassword(){
- if (session_status() == PHP_SESSION_ACTIVE) {
-
- }
- else{
- session_start();
- }
+ checkSession();
  $servername = "localhost";
  $username = "milkbag19";
  $password = "yeet";
@@ -203,12 +187,7 @@ require 'PHPMailer/src/SMTP.php';
       }
  }
  function updateUsername(){
- if (session_status() == PHP_SESSION_ACTIVE) {
-
- }
- else{
- session_start();
- }
+ checkSession();
  $servername = "localhost";
  $username = "milkbag19";
  $password = "yeet";
@@ -273,11 +252,7 @@ require 'PHPMailer/src/SMTP.php';
 
  function addClassroom(){
   //function meant to upload data to the database.  Mainly for user creation.
-      if (session_status() == PHP_SESSION_ACTIVE) {
-      }
-      else{
-      session_start();
-      }
+      checkSession();
       $servername = "localhost";
       $username = "milkbag19";
       $password = "yeet";
@@ -290,8 +265,6 @@ require 'PHPMailer/src/SMTP.php';
       $codeSearch = "SELECT * FROM classroom WHERE `classCode` LIKE '%{$classCode}%'";
        $searchresult = $mysqli->query($codeSearch);
        $row = $searchresult->fetch_assoc();
-       echo"epic";
-       echo"$classCode";
       while(!$row['username']==null){
         $classCode = rand(10000,99999);
         echo"$classCode ";
@@ -301,20 +274,36 @@ require 'PHPMailer/src/SMTP.php';
       //=====================================================================\\
       //All $_POST variables are grabbing the values from HTML text boxes    \\
       //=====================================================================\\
-
       if($className ===''){
-
       }else{
               $upload = "INSERT INTO classroom (ClassName,userid,classCode) VALUES ('$className','$idUser','$classCode')";
               if ($mysqli->query($upload) === TRUE) {
-
+                echo"<script>window.location.href='dashboard.php';</script>";
               }
              }
-
-
-
  }
+  function removeClassroom(){
+   //function meant to upload data to the database.  Mainly for user creation.
+       checkSession();
+       $servername = "localhost";
+       $username = "milkbag19";
+       $password = "yeet";
+       $database = "userinfo";
+       $idUser = $_SESSION['user']['userId'];
+       $classCode=$_SESSION['currentClass'];
+       $mysqli = new mysqli($servername, $username, $password, $database);
+       //=====================================================================\\
+       //All $_POST variables are grabbing the values from HTML text boxes    \\
+       //=====================================================================\\
+
+               $upload = "DELETE FROM `classroom` WHERE userid='$idUser' AND classCode='$classCode'";
+               if ($mysqli->query($upload) === TRUE) {
+                 echo"<script>window.location.href='dashboard.php';</script>";
+               }
+
+  }
 function classJoin(){
+checkSession();
     $servername = "localhost";
     $username = "milkbag19";
     $password = "yeet";
@@ -338,7 +327,7 @@ function classJoin(){
 }
 
  function classSelect(){
-
+    checkSession();
        $servername = "localhost";
        $username = "milkbag19";
        $password = "yeet";
@@ -359,11 +348,7 @@ function classJoin(){
  }
  function addTasks(){
    //function meant to upload data to the database.  Mainly for user creation.
-       if (session_status() == PHP_SESSION_ACTIVE) {
-       }
-       else{
-       session_start();
-       }
+       checkSession();
        $servername = "localhost";
        $username = "milkbag19";
        $password = "yeet";
@@ -386,6 +371,7 @@ function classJoin(){
 
   }
 function loadTasks(){
+checkSession();
     $servername = "localhost";
            $username = "milkbag19";
            $password = "yeet";
@@ -409,7 +395,7 @@ function loadTasks(){
                               $stmt1->execute();
                               $results = $stmt1->get_result();
                               $user = $results->fetch_object();
-            echo"<tr style='border:1px solid #dddddd; padding:0px; margin:0px;'><th style='border:1px solid #dddddd; height:10vh; width:33vw; margin:33%;'>$row->taskName</th><th style='border:1px solid #dddddd; height:10vh; width:33vw; margin:33%;'>$user->username</th><th><input type='date' name='bday' value='2020-11-27'></th></tr>";
+            echo"<tr style='background-color:white;border-radius:10px;border:0px solid #dddddd;  '><th style='border:0px solid #dddddd; height:2vh; width:33vw; '><div style='height:2vh;width:20px;background-color:red;display:block;'>  </div>$row->taskName</th><th style='border:1px solid #dddddd; height:2vh; width:33vw; '>$user->username</th><th><input type='date' name='due' value='2020-11-27'></th></tr>";
 
           }
 
@@ -420,10 +406,15 @@ function loadTasks(){
                     else{
                     session_start();
                     }
-             if($_SESSION['user']!=null){
-                 echo"<script>window.location.href = 'dashboard.php';</script>";
-             }
+
            }
+ function checkSignin(){
+    if($_SESSION['user']!=null){
+    echo"yeet2";
+        echo"<script>window.location.href='dashboard.php'</script>";
+       }
+
+ }
 //=====================================================================\\
 //When enter is pressed, or submit is clicked, then either submit      \\
 //or create is set, and this is checked via post method.               \\

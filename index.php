@@ -1,6 +1,6 @@
 <?php
 include_once('database.php');
-checkSession();
+checkSignin();
 ?>
 
 
@@ -167,8 +167,9 @@ body{
                     <br>
     <br>
     <?php
-
+        if(in_array("user", $_SESSION, TRUE)){
         echo $_SESSION['user']['userId'];
+        }
     ?>
     <p style="font-size:15px;color:red;"><?php if(isset($_POST['submit']) && $_POST['submit'] == ''){ echo $_SESSION['error']; } ?></p>
 
