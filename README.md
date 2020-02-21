@@ -1,15 +1,7 @@
-# MilkbagVersion2.github.io
-Front end for our collaborative web tool
+# About the project
 
-#Whats the goal?
-- The goal of this project is to further my understanding and skills in full stack web development.
+- This project was my first attempt at a fullstack web app and something I am quite proud of.  
 
-- This will also be a test and example of my teamwork and project managment skills, as it is meant to be made within a certain timespan.  
+- Contact (Joshwells@hotmail.ca) me if there are any questions.  
 
-- First Milestone (December 2nd, the completion of the main back end and front end for user profiles, sign in and sign up.)
-
-- Second Milestone (TBD, The completion of the dashboard with full front end and back end functionality.)
-
-- Third Mileston (TBD, Multi-user platform, with chat feature working.)
-
-# NOTE: Second account to Milkbag19. 
+- Website URL : http://www.egroupify.com
