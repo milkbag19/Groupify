@@ -129,9 +129,17 @@ body{
     padding:0px;
     margin:0px;
 }
+@keyframes slidein {
+   from { transform: scaleX(0); }
+   to   { transform: scaleX(1); }
+ }
 </style>
 </head>
+<div style= "height:0.5vh;width:100%;background-color:lightgray;">
+<div style= "height:0.5vh;width:200%;background-color:red;animation: 2s slidein;float:right;">
 
+</div>
+</div>
 
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <title>Profile</title>

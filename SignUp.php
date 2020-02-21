@@ -7,6 +7,8 @@ include_once("database.php");
 <!DOCTYPE html>
 <style>
 .signInBox{
+width:25vw;
+
 }
 .signInTxt{
 font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
@@ -55,10 +57,11 @@ div button{
 }
 
 .signInUnity{
-    margin-left:20%;margin-top:45px; padding:0px;
-    margin-bottom:75px;border-radius:100px;
-    background-color:rgba(217, 217, 217,0.7);
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);padding-bottom:65px;width:60%;
+    margin-left:9%;margin-top:45px; padding:0px;
+        margin-bottom:100px;border-radius:100px;
+        background-color:rgba(217, 217, 217,0.85);
+    	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);padding-bottom:65px;width:85%;
+    	display:inline-block;
 }
 
 .Groupify{

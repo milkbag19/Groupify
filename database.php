@@ -6,11 +6,12 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
+
  session_start();
- $servername = "localhost";  //declaring a placeholder for the database server name.
- $username = "milkbag19";    //declaring a placeholder for the database username sign in.
- $password = "yeet";         //declaring a placeholder for the database password sign in.
- $database = "userinfo";     //declaring which database within the server to connect to.
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
  // Create connection
  $mysqli = new mysqli($servername, $username, $password, $database);
  // Check connection
@@ -20,10 +21,10 @@ require 'PHPMailer/src/SMTP.php';
      function upload(){
       //function meant to upload data to the database.  Mainly for user creation.
      checkSession();
-     $servername = "localhost";
-     $username = "milkbag19";
-     $password = "yeet";
-     $database = "userinfo";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
      //=====================================================================\\
      //All $_POST variables are grabbing the values from HTML text boxes    \\
      //=====================================================================\\
@@ -64,7 +65,7 @@ require 'PHPMailer/src/SMTP.php';
                          if ($mysqli->query($upload) === TRUE) {
                              //echo "New record created successfully";
 
-                             header("Location: index.php");
+                             header("Location: https://group-ify.herokuapp.com/index.php");
                          } else {
                              //echo "Error: " . $upload . "<br>" . $mysqli->error;
                          }
@@ -90,11 +91,10 @@ require 'PHPMailer/src/SMTP.php';
      }
  function signIn(){
  checkSession();
- $servername = "localhost";
- $username = "milkbag19";
- $password = "yeet";
- $database = "userinfo";
-
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
  $usernameInput = $_POST['username'];
  $usernameInput = strtolower($usernameInput);
  $passwordInput = $_POST['password'];
@@ -114,7 +114,7 @@ require 'PHPMailer/src/SMTP.php';
 
          $_SESSION['user'] = $row;
          $_SESSION['error'] = "";
-         header("Location: dashboard.php");
+         header("Location: https://group-ify.herokuapp.com/dashboard.php");
          }else{
          $_SESSION['error']="invalid username/password";
           }
@@ -132,10 +132,10 @@ require 'PHPMailer/src/SMTP.php';
 
  function updatePassword(){
  checkSession();
- $servername = "localhost";
- $username = "milkbag19";
- $password = "yeet";
- $database = "userinfo";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
  $id = $_SESSION['user']['userId'];
  $oldPassword = $_SESSION['user']['password'];
  $newPassword = $_POST['password'];
@@ -188,10 +188,10 @@ require 'PHPMailer/src/SMTP.php';
  }
  function updateUsername(){
  checkSession();
- $servername = "localhost";
- $username = "milkbag19";
- $password = "yeet";
- $database = "userinfo";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
  $id = $_SESSION['user']['userId'];
  $oldUsername = $_SESSION['user']['username'];
  $newUsername = $_POST['username'];
@@ -249,15 +249,39 @@ require 'PHPMailer/src/SMTP.php';
          $_SESSION['error'] = "username unavailable";
       }
  }
+ function showMembers(){
+  $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+  $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+  $password = "b155c581";         //declaring a placeholder for the database password sign in.
+  $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
+     $classCode = $_SESSION['currentClass'];
 
+     $mysqli = new mysqli($servername, $username, $password, $database);
+
+     $sql = "SELECT * FROM class WHERE classCode = ?";
+           $stmt = $mysqli->prepare($sql);
+           $stmt->bind_param('s', $classCode);
+           $stmt->execute();
+           $result = $stmt->get_result();
+           while($row = $result->fetch_object()) {
+           $userId= $row->userid;
+            $sqls = "SELECT * FROM users WHERE userId = ?";
+                       $stmts = $mysqli->prepare($sqls);
+                       $stmts->bind_param('s', $userId);
+                       $stmts->execute();
+                       $results = $stmts->get_result();
+                       $rows = $results->fetch_object();
+                       echo"<h2 style='color:white;font-family:  Avantgarde,  CenturyGothic, sans-serif;text-align:center;'>$rows->username</h2>";
+           }
+ }
  function addClassroom(){
   //function meant to upload data to the database.  Mainly for user creation.
       checkSession();
-      $servername = "localhost";
-      $username = "milkbag19";
-      $password = "yeet";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
       $className = $_POST['className'];
-      $database = "userinfo";
       $idUser = $_SESSION['user']['userId'];
       $classCode = rand(10000,99999);
 
@@ -267,7 +291,6 @@ require 'PHPMailer/src/SMTP.php';
        $row = $searchresult->fetch_assoc();
       while(!$row['username']==null){
         $classCode = rand(10000,99999);
-        echo"$classCode ";
         $searchresult = $mysqli->query($codeSearch);
         $row = $searchresult->fetch_assoc();
       }
@@ -276,19 +299,20 @@ require 'PHPMailer/src/SMTP.php';
       //=====================================================================\\
       if($className ===''){
       }else{
-              $upload = "INSERT INTO classroom (ClassName,userid,classCode) VALUES ('$className','$idUser','$classCode')";
+              $upload = "INSERT INTO class (ClassName,userid,classCode,Teacher) VALUES ('$className','$idUser','$classCode',1)";
+
               if ($mysqli->query($upload) === TRUE) {
-                echo"<script>window.location.href='dashboard.php';</script>";
+                echo"<script>window.location.href='https://group-ify.herokuapp.com/dashboard.php';</script>";
               }
              }
  }
   function removeClassroom(){
    //function meant to upload data to the database.  Mainly for user creation.
        checkSession();
-       $servername = "localhost";
-       $username = "milkbag19";
-       $password = "yeet";
-       $database = "userinfo";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
        $idUser = $_SESSION['user']['userId'];
        $classCode=$_SESSION['currentClass'];
        $mysqli = new mysqli($servername, $username, $password, $database);
@@ -296,31 +320,28 @@ require 'PHPMailer/src/SMTP.php';
        //All $_POST variables are grabbing the values from HTML text boxes    \\
        //=====================================================================\\
 
-               $upload = "DELETE FROM `classroom` WHERE userid='$idUser' AND classCode='$classCode'";
+               $upload = "DELETE FROM `class` WHERE userid='$idUser' AND classCode='$classCode'";
                if ($mysqli->query($upload) === TRUE) {
-                 echo"<script>window.location.href='dashboard.php';</script>";
+                 echo"<script>window.location.href='https://group-ify.herokuapp.com/dashboard.php';</script>";
                }
 
   }
 function classJoin(){
 checkSession();
-    $servername = "localhost";
-    $username = "milkbag19";
-    $password = "yeet";
-    $database = "userinfo";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
     $mysqli = new mysqli($servername, $username, $password, $database);
     $userId1 = $_SESSION['user']['userId'];
     $classCode = $_POST['codeInput'];
-    $className = $_POST['className'];
-    $codeSearch = "SELECT * FROM classroom WHERE `classCode` LIKE '%{$classCode}%'";
+    $codeSearch = "SELECT * FROM class WHERE `classCode` LIKE '%{$classCode}%'";
     $searchresult = $mysqli->query($codeSearch);
     $row = $searchresult->fetch_assoc();
-
     $className = $row['ClassName'];
     if($row['classCode']==$classCode){
-         $upload = "INSERT INTO classroom (ClassName,userid,classCode) VALUES ('$className','$userId1','$classCode')";
+         $upload = "INSERT INTO class(ClassName,userid,classCode,Teacher) VALUES ('$className','$userId1','$classCode',0)";
               if ($mysqli->query($upload) === TRUE) {
-
                             }
     }
 
@@ -328,39 +349,112 @@ checkSession();
 
  function classSelect(){
     checkSession();
-       $servername = "localhost";
-       $username = "milkbag19";
-       $password = "yeet";
-       $database = "userinfo";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
       $mysqli = new mysqli($servername, $username, $password, $database);
       $userId1 = $_SESSION['user']['userId'];
-      //code below was sourced via helpful user, on the internet. He also described that our table could be modified by users (which isn't good) and the suggested code fix below would fix it.
-      $sql = "SELECT * FROM classroom WHERE userid = ?";
+      $sql = "SELECT * FROM class WHERE userid = ?";
       $stmt = $mysqli->prepare($sql);
       $stmt->bind_param('s', $userId1);
       $stmt->execute();
       $result = $stmt->get_result();
       while($row = $result->fetch_object()) {
-          echo "<div style='height:22vh; width:22vw;margin:10px;text-align:center;display:inline-block;background-color:white;border-radius:5px;border: 1px solid gray;' class='classBox'>
-                        <button id='class' style='height:11vh; width:22vw; border:none;box-shadow: none;'  class='submit1' name = 'class' value='$row->classCode' >$row->ClassName<br> [$row->classCode]</button>
+      $teacher = 1;
+      $classcode=$row->classCode;
+      $TeacherSearch = "SELECT * FROM class WHERE `classCode` LIKE '%{$classcode}%' AND `Teacher` LIKE '$teacher'";
+            $stmt = $mysqli->prepare($TeacherSearch);
+            $stmt->execute();
+            $TeacherRow= $stmt->get_result();
+            $LOL = $TeacherRow->fetch_object();
+            $XD=$LOL->userid;
+             $userSearch = "SELECT * FROM users WHERE `userId` = '$XD'";
+                  $stmt = $mysqli->prepare($userSearch);
+                  $stmt->execute();
+                  $results = $stmt->get_result();
+                  $TeacherName= $results->fetch_object();
+                  $usernameee = $TeacherName->username;
+          echo "<div class='classBox'>
+                        <button id='class' style='height:13vh; width:32vw; border:none;box-shadow: none;font-size:2.5vw;'  class='submit1' name = 'class' value='$row->classCode' >$row->ClassName<br> [$row->classCode]</button>
+                <button class='contact' id='contact'name='contact' value='$TeacherName->userId'>Contact</button><br>
+                <h1 style='float:left;margin-left:1vw;font-size:2.5vw;'class='TeacherDisplay'>$usernameee</h1>
+
                  </div>";
       }
+ }
+
+ function sendMessage(){
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
+       $mysqli = new mysqli($servername, $username, $password, $database);
+ $sql = "SELECT * FROM users WHERE userId = ?";
+       $stmt = $mysqli->prepare($sql);
+       $stmt->bind_param('s', $_SESSION['teacherContact']);
+       $stmt->execute();
+       $result = $stmt->get_result();
+       $row = $result->fetch_object();
+
+ $username = $_SESSION['user']['username'];
+ $mail = new PHPMailer(true);
+                        $mail->IsSMTP();
+                        $mail->SMTPAuth = true;
+                        $mail->SMTPSecure = "ssl";
+                        $mail->Host = "smtp.gmail.com";
+                        $mail->Port = 465;
+                        $mail->Username = "noreply.groupify@gmail.com";
+                        $mail->Password = "Groupify1234";
+                        $mail->AddAddress($row->email, $username);
+                        $mail->SetFrom("noreply.groupify@gmail.com", "Groupify");
+                        $mail->Subject = "Student Contact from $username";
+                        $mail->Body = $_POST['Message'];
+
+                       try{
+                           $mail->Send();
+                       } catch(Exception $e){
+                            echo"wrong";
+                       }
+                       echo"<script>window.location.href='https://group-ify.herokuapp.com/dashboard.php'</script>";
+ }
+
+ function showClasses(){
+    checkSession();
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
+          $mysqli = new mysqli($servername, $username, $password, $database);
+          $userId1 = $_SESSION['user']['userId'];
+          $sql = "SELECT * FROM class WHERE userid = ?";
+          $stmt = $mysqli->prepare($sql);
+          $stmt->bind_param('s', $userId1);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          while($row = $result->fetch_object()) {
+          $teacher = 1;
+          $classcode=$row->classCode;
+          echo "<button  class='quickClass' style='width:100%;background-color:#FFDD33;border:2px solid #FFDD33;' name ='class' id='class' value='$classcode'>$row->ClassName</button>";
+
+          }
  }
  function addTasks(){
    //function meant to upload data to the database.  Mainly for user creation.
        checkSession();
-       $servername = "localhost";
-       $username = "milkbag19";
-       $password = "yeet";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
        $taskName = $_POST['taskName'];
-       $database = "userinfo";
        $idUser = $_SESSION['user']['userId'];
        $classCode=$_SESSION['currentClass'];
+       $stus = "Working";
 
        $mysqli = new mysqli($servername, $username, $password, $database);
 
 
-               $upload = "INSERT INTO tasks (taskName,userId,classCode) VALUES ('$taskName','$idUser','$classCode')";
+               $upload = "INSERT INTO updatedtasks (taskName,userId,classCode,stus) VALUES ('$taskName','$idUser','$classCode','$stus')";
                $stmt = $mysqli->prepare($upload);
                $stmt->execute();
                $result = $stmt->get_result();
@@ -372,14 +466,14 @@ checkSession();
   }
 function loadTasks(){
 checkSession();
-    $servername = "localhost";
-           $username = "milkbag19";
-           $password = "yeet";
-           $database = "userinfo";
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
           $mysqli = new mysqli($servername, $username, $password, $database);
           $classCode = $_SESSION['currentClass'];
           //code below was sourced via helpful user, on the internet. He also described that our table could be modified by users (which isn't good) and the suggested code fix below would fix it.
-          $sql = "SELECT * FROM tasks WHERE classCode = ?";
+          $sql = "SELECT * FROM updatedtasks WHERE classCode = ?";
           $stmt = $mysqli->prepare($sql);
           $stmt->bind_param('s', $classCode);
           $stmt->execute();
@@ -390,12 +484,37 @@ checkSession();
 
           while($row = $result->fetch_object()) {
           $search = "SELECT * FROM users WHERE userId = ?";
+          $userId = $row->userid;
                               $stmt1 = $mysqli->prepare($search);
-                              $stmt1->bind_param('s', $row->userId);
+                              $stmt1->bind_param('s',$userId );
                               $stmt1->execute();
                               $results = $stmt1->get_result();
                               $user = $results->fetch_object();
-            echo"<tr style='background-color:white;border-radius:10px;border:0px solid #dddddd;  '><th style='border:0px solid #dddddd; height:2vh; width:33vw; '><div style='height:2vh;width:20px;background-color:red;display:block;'>  </div>$row->taskName</th><th style='border:1px solid #dddddd; height:2vh; width:33vw; '>$user->username</th><th><input type='date' name='due' value='2020-11-27'></th></tr>";
+                              if(isset($_POST['finished'])){
+                                     $value = $_POST['finished'];
+                                        $updateQuery = "UPDATE updatedtasks SET `stus` = '$value' WHERE `userId` = '$userId'";
+                                        $stmt1 = $mysqli->prepare($updateQuery);
+                                                                      $stmt1->execute();
+                                                                      echo"<script>window.location.href='https://group-ify.herokuapp.com/classroom.php'</script>";
+                                     }
+                                     else if(isset($_POST['working'])){
+                                      $value = $_POST['working'];
+                                      $updateQuery = "UPDATE updatedtasks SET `stus` = '$value' WHERE `userId` = '$userId'";
+                                      $stmt1 = $mysqli->prepare($updateQuery);
+                                      $stmt1->execute();
+                                        echo"<script>window.location.href='https://group-ify.herokuapp.com/classroom.php'</script>";
+                                     }
+            echo"<tr style='background-color:white;border-radius:10px;border:0px solid #dddddd;  '><th style='border:0px solid #dddddd; height:2vh; width:33vw; '><div style='height:2vh;width:20px;background-color:red;display:block;'>  </div>$row->taskName</th><th style='border:1px solid #dddddd; height:2vh; width:33vw; '>$user->username</th><th><input type='date' name='due' value='2020-11-27'><div class='dropdown'><button class='dropbtn' id='statusMenu'>$row->stus</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                              <div class='dropdown-content'>
+                                                                                                                                                                                                                                                                                                                                                                                                                                              <form id ='lol' name='SignInForm' method='post' enctype='multipart/form-data'>
+                                                                                                                                                                                                                                                                                                                                                                                                                                               <button name = 'finished' value='Finished'>Finished</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                               <button name = 'working' value='Working'>Working</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                               </form>
+                                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                              </th></tr>
+                        ";
+
 
           }
 
@@ -409,11 +528,28 @@ checkSession();
 
            }
  function checkSignin(){
+ if(array_key_exists ( 'user' , $_SESSION )){
     if($_SESSION['user']!=null){
     echo"yeet2";
-        echo"<script>window.location.href='dashboard.php'</script>";
+        echo"<script>window.location.href='https://group-ify.herokuapp.com/dashboard.php'</script>";
        }
-
+    }
+ }
+ function getClassName(){
+ $servername = "us-cdbr-iron-east-04.cleardb.net";  //declaring a placeholder for the database server name.
+ $username = "b68081f3e213ce";    //declaring a placeholder for the database username sign in.
+ $password = "b155c581";         //declaring a placeholder for the database password sign in.
+ $database = "heroku_ddbc7204b6736f4";     //declaring which database within the server to connect to.
+           $mysqli = new mysqli($servername, $username, $password, $database);
+           $classCode = $_SESSION['currentClass'];
+           //code below was sourced via helpful user, on the internet. He also described that our table could be modified by users (which isn't good) and the suggested code fix below would fix it.
+           $sql = "SELECT * FROM class WHERE classCode = ?";
+           $stmt = $mysqli->prepare($sql);
+           $stmt->bind_param('s', $classCode);
+           $stmt->execute();
+           $result = $stmt->get_result();
+           $row = $result->fetch_object();
+           $_SESSION['currentClassName'] = $row->ClassName;
  }
 //=====================================================================\\
 //When enter is pressed, or submit is clicked, then either submit      \\
@@ -426,10 +562,10 @@ if(isset($_POST["create"])){
     upload();
 }
 if(isset($_POST["register"])){
-    header("Location: SignUp.php");
+    header("Location: https://group-ify.herokuapp.com/SignUp.php");
 }
 if(isset($_POST["back"])){
-    header("Location: index.php");
+    header("Location: https://group-ify.herokuapp.com/index.php");
 }
 if(isset($_POST["changeUsername"])){
     updateUsername();

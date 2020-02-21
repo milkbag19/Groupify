@@ -12,8 +12,7 @@ include_once('database.php');
 
 <style>
 .signInBox{
-width:50vw;
-margin-left:7vw;
+width:60vw;
 }
 .signInTxt{
 font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
@@ -22,14 +21,7 @@ font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleG
 
 font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
-.titleText{
-        display:inline-block;
-      font-size:45pt;margin:0px;padding:0px;color:black;
-      }
-   .titleTextG{
 
-         font-size:50pt;margin:0px;padding:0px;color:red;
-         }
 .username{
 outline:none;padding:3px;border-radius:10px;height:20px;
 }
@@ -38,20 +30,23 @@ div button{
     display:inline-block;
 }
 .submit {
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
     display:inline-block;
     border-radius:10px;
-    color: white;
-    width:70px;
+    color: #FFDD33;
+    width:90px;
     height:35px;
-    background: #4C8FFB;
-    border: 1px #3079ED solid;
-    box-shadow: inset 0 1px 0 #80B0FB;
+    background: #222222;
+    border:none;
+    outline:none;
+    transition:0.25s;
+    margin-left:2%;
 }
 
 .submit:hover {
-    border: 1px #2F5BB7 solid;
-    box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
-    background: #3F83F1;
+    opacity:0.8;
+    width:90px;
+    height:45px;
 }
 
 .submit:active {
@@ -62,9 +57,9 @@ div button{
 }
 
 .signInUnity{
-    margin-left:9%;margin-top:45px; padding:0px;
-    margin-bottom:100px;border-radius:100px;
-    background-color:rgba(217, 217, 217,0.85);
+    margin-left:7%;margin-top:45px; padding:0px;
+    margin-bottom:10vh;border-radius:100px;
+    background-color:#FFDD33;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);padding-bottom:65px;width:85%;
 	display:inline-block;
 }
@@ -75,7 +70,7 @@ div button{
     font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif;text-align:center;
 }
 body{
-    background-image: url('memphis-colorful.png'); padding:0px;border-radius:15px;height:vmin;
+    background-color:#222222; padding:0px;border-radius:15px;height:vmin;
 }
 .secondaryBody{
     width:95%;
@@ -86,6 +81,8 @@ body{
 .usernameDisplay{
     padding:0px;
     margin:0px;
+    font-size:30px;
+
     font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif;text-align:center;
 }
 * {box-sizing: border-box;}
@@ -106,15 +103,30 @@ body{
   text-align: center;
 }
 
-.input-field {
-  width: 50%;
-  padding: 10px;
-  outline: none;
-}
+ .input-field {
+   width: 50%;
+   border-radius: 15px;
+   padding: 10px;
+   background: #2222;
+   outline: none;
+   transition:0.25s;
+   font-size:15px;
 
-.input-field:focus {
-  border: 2px solid dodgerblue;
+ }
+::placeholder {
+  color: black;
 }
+ .input-field:focus {
+   border: 2px solid dodgerblue;
+   border-radius: 0px;
+   width:60%;
+   background:#2222;
+
+
+ }
+ .input-field:hover {
+    opacity:0.8;
+  }
 .btn {
   background-color: dodgerblue;
   color: white;
@@ -138,26 +150,14 @@ body{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body >
 <div class="secondaryBody">
-<div>
-        <a href="dashboard.php" style="text-decoration: none;">
-            <h1 class = "Groupify" >
-                <span class="titleTextG" >G</span>
-                <span class="titleTextG" >r</span>
-                <span class="titleTextG" >o</span>
-                <span class="titleTextG" >u</span>
-                <span class="titleTextG" >p</span>
-                <span class="titleText" >i</span>
-                <span class="titleText" >f</span>
-                <span class="titleText" >y</span>
-            </h1>
-        </a>
-</div>
+
 
 <div align="center" class="signInUnity" >
 
 
 <div class="SignInTitle" style="margin:0px; padding:0px; display:inline-block;width:85%;">
-   <img src="https://img.icons8.com/bubbles/500/000000/guest-male.png"style="width:150px;height:150px;margin:0px;padding:0px;">
+
+   <a href="https://group-ify.herokuapp.com/dashboard.php"><img src="https://img.icons8.com/windows/512/000000/gender-neutral-user.png"style="width:150px;height:150px;margin:0px;padding:0px;"></a>
    <h1 class="profileTitle">Your Profile</h1>
 </div>
 <div class="signInBox">
@@ -165,26 +165,22 @@ body{
 
 <br>
     <br>
-    <h2 class="usernameDisplay">Username : <?php echo $_SESSION['user']['username']; ?><h2>
+    <h2 class="usernameDisplay">Username : <?php echo $_SESSION['user']['username']; ?><h2><h2 class="usernameDisplay">Email : <?php echo$_SESSION['user']['email']; ?></h2>
 
      <div class="input-container">
-        <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="new username" name="username" id="username">
+        <input style="text-align: center;border:none;height:5vh;margin: 0 auto 10px auto;"class="input-field" type="text" placeholder="New Username" name="username">
       </div>
       <p style="font-size:12px;color:red;"><?php $error="";if(isset($_POST['changeUsername']) && $_POST['changeUsername'] == ''){ echo $_SESSION['error']; } ?></p>
           <button  id = "changeUsername" class="submit"  name="changeUsername" >Change</button>
      <br>
      <br>
      <div class="input-container">
-        <i class="fa fa-key icon"></i>
-        <input class="input-field" type="password" placeholder="Password" name="password">
+       <input style="text-align: center;border:none;height:5vh;margin: 0 auto 10px auto;"class="input-field" type="password" placeholder="New Password" name="password">
      </div>
      <br>
      <div class="input-container">
-        <i class="fa fa-key icon"></i>
-        <input class="input-field" type="password" placeholder="Confirm password" name="passwordCon">
+        <input style="text-align: center;border:none;height:5vh;margin: 0 auto 10px auto;"class="input-field" type="password" placeholder="Confirm Password" name="passwordCon">
      </div>
-     <br>
         <p style="font-size:12px;color:red;"><?php $error="";if(isset($_POST['changePassword']) && $_POST['changePassword'] == ''){ echo $_SESSION['error']; } ?></p>
           <button  id = "changePassword" class="submit"  name="changePassword" >Change</button>
     <br>
@@ -200,5 +196,5 @@ body{
 </div>
 
 </div>
-<p class="signInTxt"  style="text-align:center;">Created and Designed by : Josh Wells; Shaun Francis</p>
+<p class="signInTxt"  style="text-align:center;color:#FFDD33;">Created and Designed by : Josh Wells; Shaun Francis</p>
 </body>
